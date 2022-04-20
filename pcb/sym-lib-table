@@ -1,0 +1,4 @@
+(sym_lib_table
+  (lib (name "tokiponaboard-eagle-import")(type "KiCad")(uri "${KIPRJMOD}/tokiponaboard-eagle-import.kicad_sym")(options "")(descr ""))
+  (lib (name "boards")(type "Legacy")(uri "/usr/share/kicad/library/SparkFun-Boards.lib")(options "")(descr ""))
+)
