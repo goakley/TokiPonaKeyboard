@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!--
+    This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+    This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
+    You should have received a copy of the GNU General Public License along with this program. If not, see <https://www.gnu.org/licenses/>. 
+    -->
+    <meta charset="utf-8">
+    <title>keymap</title>
+  </head>
+  <body>
+    <div id="keys"></div>
+    <textarea id="inputoutput"></textarea>
+    <script>
+      const FINGERS = 4;
+      const keys = document.getElementById("keys");
+      const inputoutput = document.getElementById("inputoutput");
+      inputoutput.style.position = 'absolute';
+      inputoutput.style.top = '300px';
+      inputoutput.style.width = '800px';
+      inputoutput.style.height = '200px';
+      const hash = decodeURI(window.location.hash);
+      console.log(hash);
+      let state = eval(hash.replace(' ', '').replace('#', '').replace('{','[').replace('}', ']')) || [];
+      while (state.length < FINGERS * 4) {
+          state.push(0);
+      }
+      while (state.length > FINGERS * 4) {
+          state.pop();
+      }
+      function updateOutput() {
+          const encoded = '{' + state.map(x => x === 0 ? '0' : `'${x}'`).join(',') + '}';
+          //window.location.hash = encoded;
+          const N = FINGERS * 4;
+          let text = `bool state[${N}] = {${Array.apply(null, Array(N)).map(_ => 0)}};\n`;
+          text += `char keysPressed[${N+1}];\n`;
+          text += `char keysPressedI = 0;\n`;
+          text += `char keysReleased[${N+1}];\n`;
+          text += `char keysReleasedI = 0;\n`;
+          text += `const char keymap[${N}] = ${encoded};`;
+          inputoutput.value = text;
+      }
+      function makeInput(top, left, i) {
+          const dom = document.createElement('input');
+          dom.type = 'text';
+          dom.maxLength = '1';
+          dom.style.textAlign = 'center';
+          dom.style.position = 'absolute';
+          dom.style.top = top + 'px';
+          dom.style.left = left + 'px';
+          dom.style.width = '25px';
+          dom.style.height = '25px';
+          if (state[i] !== undefined && state[i] !== 0) {
+              dom.value = state[i];
+          }
+          dom.addEventListener('input', (e) => {
+              state[i] = e.target.value ? e.target.value : 0;
+              updateOutput();
+          });
+          keys.appendChild(dom);
+          return dom;
+      }
+      for (let i = 0; i < FINGERS; i++) {
+          const up = makeInput(100, (i + 1) * 100, i * 4 + 0);
+          const down = makeInput(200, (i + 1) * 100, i * 4 + 1);
+          const left = makeInput(150, (i + 1) * 100 - 25, i * 4 + 2);
+          const right = makeInput(150, (i + 1) * 100 + 25, i * 4 + 3);
+      }
+      updateOutput();
+    </script>
+  </body>
+</html>
