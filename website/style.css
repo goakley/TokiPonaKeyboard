@@ -1,0 +1,44 @@
+body {
+    background: #111;
+    color: #eee;
+}
+
+#content {
+    max-width: 800px;
+    padding-left: 0.5em;
+    padding-right: 0.5em;
+    padding-bottom: 1.0ex;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+h1 {
+    text-align: center;
+    padding-bottom:1ex;
+    border-bottom: 1px solid grey;
+    margin-left: 1em;
+    margin-right: 1em;
+}
+
+img.right {
+    float: right;
+}
+
+div.section {
+    clear: both;
+    min-height: 300px;
+    padding-bottom: 1ex;
+}
+
+p.link {
+    padding:0.5ex 0;
+    font-size: 120%;
+}
+
+a {
+    color: #eee;
+}
+
+ul {
+    padding-left: 1em;
+}
