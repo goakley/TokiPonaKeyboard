@@ -13,7 +13,8 @@ You should have received a copy of the GNU General Public License along with thi
 //define MUXLEN sizeof(muxvalues)/sizeof(muxvalues[0])
 #define MUXLEN 8
 
-#define KEYBRD 0
+// Easily switch between actual keyboard input and debugging over serial
+#define KEYBRD 1
 #if KEYBRD
 #define WRITE Keyboard.write
 #else
