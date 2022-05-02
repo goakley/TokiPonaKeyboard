@@ -77,7 +77,7 @@ char keysReleasedI = 0;
 // vowel-pair mapping (o floating)
 //const char keymap[16] = {'w','m','j',0,'n','l','a','i','t','k','e','u','p','s','o',0};
 // vowel-pair mapping (u floating)
-const char keymap[16] = {'w','m','j',0,'n','l','a','i','t','k','e','o','p','s','u',0};
+const char keymap[16] = {'w','m','j',8,'n','l','a','i','t','k','e','o','p','s','u','.'};
 
 void refreshFromMuxIndex(int index, bool active) {
   if (keymap[index]) {
