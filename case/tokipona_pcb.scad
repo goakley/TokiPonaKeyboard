@@ -3,6 +3,7 @@
 // You should have received a copy of the GNU General Public License along with this program. If not, see <https://www.gnu.org/licenses/>.
 
 // ALL UNITS IN MILS (1/1000in)
+// Remember this when attempting to slice or upload your STL to a fabricator
 
 // How high off the base of the container the PCB should sit
 standheight = 250;
@@ -21,7 +22,8 @@ usbplace = 3400;
 wallsize=50;
 // How many extra stands to print (for help with soldering the PCB)
 extrastands = 4;
-// The path to the DXF file (if rendering the PCB - do not enable this during the final render)
+// The DXF drill file from the KiCad PCB project
+// (use for referencing the PCB during development - DO NOT enable this during the final render)
 dxf_file = undef; // "drill_map.dxf"
 // Calculations for the size of the PCB, taken from the PCB CAD
 pcbsize = [3850,2350];
