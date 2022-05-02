@@ -13,7 +13,9 @@
     <div id="keys"></div>
     <textarea id="inputoutput"></textarea>
     <script>
-      const FINGERS = 4;
+      const MAP2STATE = [15,14,12,13,3,2,0,1,7,6,4,5,11,10,8,9];
+      const STATE2MAP = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0];
+      MAP2STATE.forEach((x, i) => {STATE2MAP[x] = i});
       const keys = document.getElementById("keys");
       const inputoutput = document.getElementById("inputoutput");
       inputoutput.style.position = 'absolute';
@@ -23,16 +25,16 @@
       const hash = decodeURI(window.location.hash);
       console.log(hash);
       let state = eval(hash.replace(' ', '').replace('#', '').replace('{','[').replace('}', ']')) || [];
-      while (state.length < FINGERS * 4) {
+      while (state.length < MAP2STATE.length) {
           state.push(0);
       }
-      while (state.length > FINGERS * 4) {
+      while (state.length > MAP2STATE.length) {
           state.pop();
       }
       function updateOutput() {
           const encoded = '{' + state.map(x => x === 0 ? '0' : `'${x}'`).join(',') + '}';
           //window.location.hash = encoded;
-          const N = FINGERS * 4;
+          const N = MAP2STATE.length;
           let text = `bool state[${N}] = {${Array.apply(null, Array(N)).map(_ => 0)}};\n`;
           text += `char keysPressed[${N+1}];\n`;
           text += `char keysPressedI = 0;\n`;
@@ -61,11 +63,11 @@
           keys.appendChild(dom);
           return dom;
       }
-      for (let i = 0; i < FINGERS; i++) {
-          const up = makeInput(100, (i + 1) * 100, i * 4 + 0);
-          const down = makeInput(200, (i + 1) * 100, i * 4 + 1);
-          const left = makeInput(150, (i + 1) * 100 - 25, i * 4 + 2);
-          const right = makeInput(150, (i + 1) * 100 + 25, i * 4 + 3);
+      for (let i = 0; i < MAP2STATE.length / 4; i++) {
+          const up = makeInput(100, (i + 1) * 100, STATE2MAP[i * 4 + 0]);
+          const down = makeInput(200, (i + 1) * 100, STATE2MAP[i * 4 + 1]);
+          const left = makeInput(150, (i + 1) * 100 - 25, STATE2MAP[i * 4 + 2]);
+          const right = makeInput(150, (i + 1) * 100 + 25, STATE2MAP[i * 4 + 3]);
       }
       updateOutput();
     </script>
